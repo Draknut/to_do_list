@@ -1,0 +1,7 @@
+.rowCol{
+    display: flex;
+    justify-content: space-around;
+}
+#inputBox{
+    text-align: center;
+}
