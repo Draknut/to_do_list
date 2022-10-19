@@ -26,7 +26,6 @@ function createItemList(){
     let newItem = document.createElement('li');
     let delBtn = document.createElement('button');
     let modBtn = document.createElement('button');
-    let a = 10;
     newItem.classList.add('Item');
     delBtn.id = 'delButton';
     modBtn.id = 'modButton';
