@@ -4,7 +4,7 @@ let categorybtn = document.getElementById('categorySelector')
 let cat1 = document.getElementById('category1')
 let cat2 = document.getElementById('category2')
 let cat3 = document.getElementById('category3')
-let itemList = document.getElementById('Item')
+let itemList = [];
 let bool = false;
 
 submitbtn.addEventListener('click', () =>{
@@ -35,18 +35,23 @@ function createItemList(){
     newItem.appendChild(modBtn);
 
     txtfield.value = '';
-    console.log(text);
-
-    return newItem;
-    
+    itemList.push(newItem);
+    console.log(itemList);
+    itemList.forEach(element => element.addEventListener('mouseover', hoverFunction));
+    itemList.forEach(element => element.addEventListener('mouseout', outFunction));
 }
 })
 
-// if(bool){
-//     console.log(bool)
-//     .addEventListener('mouseover', hoverFunction)
-// }
 function hoverFunction(){
     console.log("Hover");
-    this.style.color = 'blue';
+    let child = this.children;
+    child[0].style.display = "flex";
+    child[1].style.display = "flex";
+    console.log(child); 
+}
+function outFunction()
+{
+    let child = this.children;
+    child[0].style.display = "none";
+    child[1].style.display = "none";
 }

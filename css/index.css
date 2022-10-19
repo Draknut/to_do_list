@@ -5,3 +5,9 @@
 #inputBox{
     text-align: center;
 }
+h3{
+    text-align: center;
+}
+#delButton , #modButton{
+    display: none;
+}
