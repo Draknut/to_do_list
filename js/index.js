@@ -30,7 +30,9 @@ function createItemList(){
     newItem.classList.add('Item');
     newItem.style.display = "flex";
     modBtn.id = 'modButton';
+    modBtn.innerHTML += '<i class="fa-solid fa-pencil"></i>';
     delBtn.id = 'delButton';
+    delBtn.innerHTML += '<i class="fa-solid fa-eraser"></i>';
     newItemText.innerText = text;
     eval(catValue).appendChild(newItem);
     newItem.appendChild(newItemText);
@@ -72,6 +74,7 @@ function close(){
 function changeText(){
     let inputText = document.createElement('input');
     let buttonOk = document.createElement('button');
+    buttonOk.innerHTML += '<i class="fa-solid fa-check"></i>';
     inputText.id = 'textInputModify';
     buttonOk.id = 'btnOk';
     let txtfieldModify = document.getElementById('textInputModify')
