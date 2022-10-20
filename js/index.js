@@ -24,50 +24,71 @@ else
 
 function createItemList(){
     let newItem = document.createElement('li');
+    let newItemText = document.createElement('h4');
     let delBtn = document.createElement('button');
     let modBtn = document.createElement('button');
     newItem.classList.add('Item');
+    newItem.style.display = "flex";
     modBtn.id = 'modButton';
     delBtn.id = 'delButton';
-    newItem.innerText = text;
+    newItemText.innerText = text;
     eval(catValue).appendChild(newItem);
+    newItem.appendChild(newItemText);
     newItem.appendChild(modBtn);
     newItem.appendChild(delBtn);
 
     txtfield.value = '';
     itemList.push(newItem);
-    console.log(itemList);
     itemList.forEach(element => element.addEventListener('mouseover', hoverFunction));
     itemList.forEach(element => element.addEventListener('mouseout', outFunction));
-    modBtn.addEventListener('click', modify);
+    modBtn.addEventListener('click', changeText);
     delBtn.addEventListener('click', close);
-
+    
 }
 })
+
 
 
 function hoverFunction(){
     console.log("Hover");
     let child = this.children;
-    child[0].style.display = "flex";
+    child[2].style.display = "flex";
     child[1].style.display = "flex";
-    console.log(child); 
 }
 function outFunction()
 {
     let child = this.children;
-    child[0].style.display = "none";
+    child[2].style.display = "none";
     child[1].style.display = "none";
 }
 
 function close(){
     let close = document.getElementById("delButton");
-        console.log("close")
         let div = this.parentElement;
         div.style.display = "none";
       
 }
 
-function modify(){
-    
+function changeText(){
+    let inputText = document.createElement('input');
+    let buttonOk = document.createElement('button');
+    inputText.id = 'textInputModify';
+    buttonOk.id = 'btnOk';
+    let txtfieldModify = document.getElementById('textInputModify')
+    inputText.type = 'text';
+    inputText.placeholder = 'modify text';
+    buttonOk.value = "ok";
+    let child = this.parentElement.children;
+    let textValue = child[0];
+    textValue.appendChild(inputText);
+    textValue.appendChild(buttonOk);
+    buttonOk.addEventListener('click', () =>{
+        if(inputText.value.length != 0)
+        textValue.innerText = inputText.value;
+        child[2].style.display = "none";
+        child[1].style.display = "none";
+        console.log("modified") 
+        
+    });
+        
 }
