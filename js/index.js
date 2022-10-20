@@ -26,9 +26,9 @@ function createItemList(){
     let newItem = document.createElement('li');
     let delBtn = document.createElement('button');
     let modBtn = document.createElement('button');
-    newItem.classList.add('Item"');
-    delBtn.id = 'delButton';
+    newItem.classList.add('Item');
     modBtn.id = 'modButton';
+    delBtn.id = 'delButton';
     newItem.innerText = text;
     eval(catValue).appendChild(newItem);
     newItem.appendChild(modBtn);
@@ -39,8 +39,12 @@ function createItemList(){
     console.log(itemList);
     itemList.forEach(element => element.addEventListener('mouseover', hoverFunction));
     itemList.forEach(element => element.addEventListener('mouseout', outFunction));
+    modBtn.addEventListener('click', modify);
+    delBtn.addEventListener('click', close);
+
 }
 })
+
 
 function hoverFunction(){
     console.log("Hover");
@@ -54,4 +58,16 @@ function outFunction()
     let child = this.children;
     child[0].style.display = "none";
     child[1].style.display = "none";
+}
+
+function close(){
+    let close = document.getElementById("delButton");
+        console.log("close")
+        let div = this.parentElement;
+        div.style.display = "none";
+      
+}
+
+function modify(){
+    
 }
