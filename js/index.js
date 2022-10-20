@@ -71,5 +71,3 @@ function close(){
 function modify(){
     
 }
-
-
