@@ -7,6 +7,7 @@ let cat3 = document.getElementById('category3')
 let itemList = [];
 let bool = false;
 
+
 submitbtn.addEventListener('click', () =>{
     let text = txtfield.value;
     let catValue = categorybtn.value;
