@@ -1,3 +1,4 @@
+let containers = document.querySelectorAll('.container');
 let txtfield = document.getElementById('textInput')
 let submitbtn = document.getElementById('btnInput')
 let categorybtn = document.getElementById('categorySelector')
@@ -28,7 +29,8 @@ function createItemList(){
     let newItemText = document.createElement('h4');
     let delBtn = document.createElement('button');
     let modBtn = document.createElement('button');
-    newItem.classList.add('Item');
+    newItem.className='Item box';
+    newItem.draggable = true;
     newItem.style.display = "flex";
     modBtn.id = 'modButton';
     modBtn.innerHTML += '<i class="fa-solid fa-pencil"></i>';
@@ -42,18 +44,51 @@ function createItemList(){
 
     txtfield.value = '';
     itemList.push(newItem);
-    itemList.forEach(element => element.addEventListener('mouseover', hoverFunction));
-    itemList.forEach(element => element.addEventListener('mouseout', outFunction));
+    itemList.forEach(element => 
+    {
+        element.addEventListener('mouseover', hoverFunction);
+        element.addEventListener('mouseout', outFunction);
+
+        element.addEventListener('dragstart', () => 
+        {
+            element.classList.add('dragging');
+            console.log('dragging');
+        })
+
+        element.addEventListener('dragend', ()=>{
+            element.classList.remove('dragging');
+            console.log('stopDraggin');
+        })
+    })
+    
+
     modBtn.addEventListener('click', changeText);
     delBtn.addEventListener('click', close);
     
 }
 })
 
+containers.forEach(container => {
+    container.addEventListener('dragover', e =>{
+        e.preventDefault();
+        let afterElement = getDragAfterElement(container, e.clientY);
+        const draggable = document.querySelector('.dragging');
+        container.appendChild(draggable);
+        draggable.style.justifyContent = 'center';
+        console.log( draggable.style.justifyContent);
+    })
+})
 
+function getDragAfterElement(container, y){
+    let draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+
+    draggableElements.reduce((closest, child)=>{
+        let box = child.getBoundingClientRet();
+        console.log(box);
+    }, {offset: Number.POSITIVE_INFINITY})
+}
 
 function hoverFunction(){
-    console.log("Hover");
     let child = this.children;
     child[2].style.display = "flex";
     child[1].style.display = "flex";
