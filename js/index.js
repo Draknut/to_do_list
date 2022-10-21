@@ -29,7 +29,8 @@ function createItemList(){
     let newItemText = document.createElement('h4');
     let delBtn = document.createElement('button');
     let modBtn = document.createElement('button');
-    newItem.className='Item box';
+    newItem.className='Item';
+    newItem.classList.add(catValue);
     newItem.draggable = true;
     newItem.style.display = "flex";
     modBtn.id = 'modButton';
@@ -44,6 +45,7 @@ function createItemList(){
 
     txtfield.value = '';
     itemList.push(newItem);
+
     itemList.forEach(element => 
     {
         element.addEventListener('mouseover', hoverFunction);
@@ -70,22 +72,32 @@ function createItemList(){
 
 containers.forEach(container => {
     container.addEventListener('dragover', e =>{
+        let child = container.children;
         e.preventDefault();
         let afterElement = getDragAfterElement(container, e.clientY);
         const draggable = document.querySelector('.dragging');
-        container.appendChild(draggable);
+        console.log(afterElement);
+        child[1].appendChild(draggable);
         draggable.style.justifyContent = 'center';
         console.log( draggable.style.justifyContent);
     })
 })
 
 function getDragAfterElement(container, y){
-    let draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+    let draggableElements = [...container.querySelectorAll('.Item:not(.dragging)')];
 
-    draggableElements.reduce((closest, child)=>{
-        let box = child.getBoundingClientRet();
-        console.log(box);
-    }, {offset: Number.POSITIVE_INFINITY})
+    return draggableElements.reduce((closest, child)=> {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height/2;
+        if(offset < 0 && offset > closest.offset)
+        {
+            return {offset: offset, element: child};
+        }
+        else
+        {
+            return closest;
+        }
+    }, {offset: Number.NEGATIVE_INFINITY}).element;
 }
 
 function hoverFunction(){
@@ -102,8 +114,8 @@ function outFunction()
 
 function close(){
     let close = document.getElementById("delButton");
-        let div = this.parentElement;
-        div.style.display = "none";
+    let div = this.parentElement;
+    div.style.display = "none";
       
 }
 
@@ -115,8 +127,7 @@ function changeText(){
     buttonOk.id = 'btnOk';
     let txtfieldModify = document.getElementById('textInputModify')
     inputText.type = 'text';
-    inputText.placeholder = 'modify text';
-    buttonOk.value = "ok";
+    inputText.placeholder = 'Modify Text';
     let child = this.parentElement.children;
     let textValue = child[0];
     textValue.appendChild(inputText);
